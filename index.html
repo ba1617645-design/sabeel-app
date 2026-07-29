@@ -28,31 +28,19 @@
                         sans: ['Cairo', 'sans-serif'],
                     },
                     colors: {
-                        primary: 'var(--clr-primary)',
-                        secondary: 'var(--clr-secondary)',
-                        dark: 'var(--clr-dark)',
-                        light: 'var(--clr-light)',
+                        primary: '#059669',
+                        secondary: '#10b981',
+                        dark: '#064e3b',
+                        light: '#ecfdf5',
                     }
                 }
             }
         }
     </script>
     <style>
-        :root {
-            --clr-primary: #059669;
-            --clr-secondary: #10b981;
-            --clr-dark: #064e3b;
-            --clr-light: #ecfdf5;
-        }
-        html.dark {
-            --clr-primary: #34d399;
-            --clr-secondary: #6ee7b7;
-            --clr-dark: #f9fafb;
-            --clr-light: #374151;
-        }
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: var(--clr-gray-100);
+            background-color: #f3f4f6;
             transition: background 0.8s ease, color 0.3s ease;
             position: relative;
             overflow-x: hidden;
@@ -462,7 +450,8 @@
         
         html.dark .bg-white,
         html.dark .bg-gray-50,
-        html.dark .bg-gray-100 {
+        html.dark .bg-gray-100,
+        html.dark .bg-light {
             background-color: #1f2937 !important;
             border-color: #374151 !important;
         }
@@ -470,8 +459,22 @@
         html.dark .text-gray-800,
         html.dark .text-gray-700,
         html.dark .text-gray-600,
-        html.dark .text-gray-500 {
+        html.dark .text-gray-500,
+        html.dark .text-dark {
             color: #e5e7eb !important;
+        }
+        
+        html.dark .text-primary {
+            color: #34d399 !important;
+        }
+        
+        html.dark .text-emerald-600 {
+            color: #34d399 !important;
+        }
+        
+        html.dark .border-emerald-100,
+        html.dark .border-emerald-200 {
+            border-color: #4b5563 !important;
         }
 
         html.dark input,
