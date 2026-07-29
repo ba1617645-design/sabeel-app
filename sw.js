@@ -1,4 +1,4 @@
-const CACHE = 'sabil-almoamen-v2';
+const CACHE = 'sabil-almoamen-v3';
 const STATIC = [
   './',
   './index.html'
