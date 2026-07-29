@@ -11,13 +11,9 @@
     <meta property="og:description" content="موقع إسلامي شامل للقرآن الكريم والأذكار والأدعية ومواقيت الصلاة.">
     <meta property="og:type" content="website">
     <title>سبيل المؤمن</title>
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <script src="https://cdn.tailwindcss.com" fetchpriority="high"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <script>
         tailwind.config = {
@@ -870,13 +866,13 @@
                     <div id="dailyAchievementsList" class="space-y-3"></div>
                 </div>
 
-                <div class="bg-white rounded-3xl shadow-lg border border-emerald-100 p-6">
+                <div class="bg-white rounded-3xl shadow-lg border border-amber-100 p-6">
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <h3 class="text-2xl font-bold text-dark">ختمة القرآن</h3>
                             <p class="text-gray-500 font-semibold">هذه الختمة متصلة مباشرة بقسم القرآن الكريم وتحفظ تقدمك تلقائيًا صفحة بصفحة</p>
                         </div>
-                        <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center text-2xl">
                             <i class="fas fa-book-open"></i>
                         </div>
                     </div>
@@ -886,26 +882,26 @@
                             <span id="khatmaPercent">0%</span>
                         </div>
                         <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
-                            <div id="khatmaProgressBar" class="h-full bg-gradient-to-l from-emerald-500 to-primary rounded-full transition-all duration-300" style="width: 0%"></div>
+                            <div id="khatmaProgressBar" class="h-full bg-gradient-to-l from-amber-400 to-orange-500 rounded-full transition-all duration-300" style="width: 0%"></div>
                         </div>
                     </div>
                     <div class="grid grid-cols-3 gap-3 mb-4 text-center">
-                        <div class="bg-emerald-50 rounded-2xl p-3">
+                        <div class="bg-amber-50 rounded-2xl p-3">
                             <p class="text-xs text-gray-500 font-semibold mb-1">الجزء الحالي</p>
                             <p id="khatmaJuz" class="text-xl font-bold text-dark">1</p>
                         </div>
-                        <div class="bg-emerald-50 rounded-2xl p-3">
+                        <div class="bg-amber-50 rounded-2xl p-3">
                             <p class="text-xs text-gray-500 font-semibold mb-1">المتبقي</p>
                             <p id="khatmaRemaining" class="text-xl font-bold text-dark">603</p>
                         </div>
-                        <div class="bg-emerald-50 rounded-2xl p-3">
+                        <div class="bg-amber-50 rounded-2xl p-3">
                             <p class="text-xs text-gray-500 font-semibold mb-1">اليوم</p>
                             <p id="khatmaTodayPages" class="text-xl font-bold text-dark">0</p>
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="showPage('quran'); openCurrentSavedPage();" class="flex-1 bg-primary hover:bg-emerald-700 text-white py-2 rounded-xl font-bold transition">فتح صفحة المتابعة</button>
-                        <button onclick="resetKhatmaProgress()" class="flex-1 bg-white border border-emerald-200 text-emerald-600 hover:bg-emerald-50 py-2 rounded-xl font-bold transition">إعادة الضبط</button>
+                        <button onclick="showPage('quran'); openCurrentSavedPage();" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 rounded-xl font-bold transition">فتح صفحة المتابعة</button>
+                        <button onclick="resetKhatmaProgress()" class="flex-1 bg-white border border-red-200 text-red-500 hover:bg-red-50 py-2 rounded-xl font-bold transition">إعادة الضبط</button>
                     </div>
                 </div>
             </div>
@@ -1791,23 +1787,25 @@
         }
     </script>
     <!-- Google Font for Quran text -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
     <script>
         // --- Navigation Logic ---
         function showPage(pageId) {
+            // Hide all pages
             document.querySelectorAll('.page-content').forEach(el => {
                 el.classList.remove('active');
             });
+            // Show selected page
             document.getElementById(pageId).classList.add('active');
 
+            // Update active state in nav (desktop)
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('border-b-2', 'border-white');
             });
-            if (window.event && window.event.currentTarget) {
-                window.event.currentTarget.classList.add('border-b-2', 'border-white');
-            }
+            event.currentTarget.classList.add('border-b-2', 'border-white');
 
+            // Scroll to top
             window.scrollTo(0, 0);
         }
 
@@ -5132,8 +5130,8 @@
             showPwaBanner();
         });
 
-        // Init everything — defer SW registration for faster first paint
-        setTimeout(registerServiceWorker, 1000);
+        // Init everything
+        registerServiceWorker();
         initOfflineDetection();
         showPwaBanner();
     </script>
