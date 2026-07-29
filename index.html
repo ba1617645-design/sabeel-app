@@ -28,95 +28,19 @@
                         sans: ['Cairo', 'sans-serif'],
                     },
                     colors: {
-                        primary: 'var(--clr-primary)',
-                        secondary: 'var(--clr-secondary)',
-                        dark: 'var(--clr-dark)',
-                        light: 'var(--clr-light)',
-                        white: 'var(--clr-white)',
-                        black: 'var(--clr-black)',
-                        gray: {
-                            50: 'var(--clr-gray-50)',
-                            100: 'var(--clr-gray-100)',
-                            200: 'var(--clr-gray-200)',
-                            300: 'var(--clr-gray-300)',
-                            400: 'var(--clr-gray-400)',
-                            500: 'var(--clr-gray-500)',
-                            600: 'var(--clr-gray-600)',
-                            700: 'var(--clr-gray-700)',
-                            800: 'var(--clr-gray-800)',
-                            900: 'var(--clr-gray-900)',
-                        },
-                        emerald: {
-                            50: 'var(--clr-emerald-50)',
-                            100: 'var(--clr-emerald-100)',
-                            200: 'var(--clr-emerald-200)',
-                            300: 'var(--clr-emerald-300)',
-                            400: 'var(--clr-emerald-400)',
-                            500: 'var(--clr-emerald-500)',
-                            600: 'var(--clr-emerald-600)',
-                            700: 'var(--clr-emerald-700)',
-                        },
+                        primary: '#059669', // Emerald 600
+                        secondary: '#10b981', // Emerald 500
+                        dark: '#064e3b', // Emerald 900
+                        light: '#ecfdf5', // Emerald 50
                     }
                 }
             }
         }
     </script>
     <style>
-        :root {
-            --clr-primary: #059669;
-            --clr-secondary: #10b981;
-            --clr-dark: #064e3b;
-            --clr-light: #ecfdf5;
-            --clr-white: #ffffff;
-            --clr-black: #000000;
-            --clr-gray-50: #f9fafb;
-            --clr-gray-100: #f3f4f6;
-            --clr-gray-200: #e5e7eb;
-            --clr-gray-300: #d1d5db;
-            --clr-gray-400: #9ca3af;
-            --clr-gray-500: #6b7280;
-            --clr-gray-600: #4b5563;
-            --clr-gray-700: #374151;
-            --clr-gray-800: #1f2937;
-            --clr-gray-900: #111827;
-            --clr-emerald-50: #ecfdf5;
-            --clr-emerald-100: #d1fae5;
-            --clr-emerald-200: #a7f3d0;
-            --clr-emerald-300: #6ee7b7;
-            --clr-emerald-400: #34d399;
-            --clr-emerald-500: #10b981;
-            --clr-emerald-600: #059669;
-            --clr-emerald-700: #047857;
-        }
-        html.dark {
-            --clr-primary: #34d399;
-            --clr-secondary: #6ee7b7;
-            --clr-dark: #f9fafb;
-            --clr-light: #374151;
-            --clr-white: #1f2937;
-            --clr-black: #ffffff;
-            --clr-gray-50: #374151;
-            --clr-gray-100: #374151;
-            --clr-gray-200: #4b5563;
-            --clr-gray-300: #6b7280;
-            --clr-gray-400: #9ca3af;
-            --clr-gray-500: #d1d5db;
-            --clr-gray-600: #e5e7eb;
-            --clr-gray-700: #f3f4f6;
-            --clr-gray-800: #f9fafb;
-            --clr-gray-900: #ffffff;
-            --clr-emerald-50: #374151;
-            --clr-emerald-100: #374151;
-            --clr-emerald-200: #4b5563;
-            --clr-emerald-300: #6ee7b7;
-            --clr-emerald-400: #34d399;
-            --clr-emerald-500: #6ee7b7;
-            --clr-emerald-600: #34d399;
-            --clr-emerald-700: #6ee7b7;
-        }
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: var(--clr-gray-100);
+            background-color: #f3f4f6;
             transition: background 0.8s ease, color 0.3s ease;
             position: relative;
             overflow-x: hidden;
@@ -520,14 +444,61 @@
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.35);
         }
 
-        html.dark header {
+        html.dark #quranReaderPage .text-dark {
+            color: #f9fafb !important;
+        }
+
+        html.dark #quranReaderPage .bg-light {
+            background-color: #1f2937 !important;
+            color: #a7f3d0 !important;
+        }
+        
+        html.dark .bg-white,
+        html.dark .bg-gray-50,
+        html.dark .bg-light {
+            background-color: #1f2937 !important;
+            border-color: #374151 !important;
+            color: #f9fafb !important;
+        }
+        
+        html.dark .text-gray-800,
+        html.dark .text-gray-700,
+        html.dark .text-gray-600,
+        html.dark .text-dark {
+            color: #f3f4f6 !important;
+        }
+        
+        html.dark .text-gray-500 {
+            color: #9ca3af !important;
+        }
+        
+        html.dark header,
+        html.dark .bg-primary {
             background-color: #065f46 !important;
         }
         
+        html.dark .bg-blue-50,
+        html.dark .bg-orange-50 {
+            background-color: #374151 !important;
+        }
+
+        html.dark .bg-rose-50,
+        html.dark .border-rose-100,
+        html.dark .border-rose-200 {
+            background-color: #2f1f2b !important;
+            border-color: #5b334f !important;
+        }
+
+        html.dark .text-rose-500,
+        html.dark .text-rose-600,
+        html.dark .text-rose-700 {
+            color: #f9a8d4 !important;
+        }
+
         html.dark input,
         html.dark select,
         html.dark textarea {
-            background-color: #1e293b !important;
+            background-color: #111827 !important;
             color: #f9fafb !important;
             border-color: #4b5563 !important;
         }
@@ -537,9 +508,25 @@
             color: #9ca3af !important;
         }
 
-        html.dark .notification-banner {
-            background-color: #1e293b !important;
-            border-color: #374151 !important;
+        html.dark .bg-lime-50,
+        html.dark .bg-cyan-50,
+        html.dark .bg-lime-100,
+        html.dark .bg-cyan-100 {
+            background-color: #243341 !important;
+            border-color: #3f4f5d !important;
+            color: #f9fafb !important;
+        }
+
+        html.dark .border-lime-100,
+        html.dark .border-lime-200,
+        html.dark .border-cyan-100,
+        html.dark .border-cyan-200 {
+            border-color: #3f4f5d !important;
+        }
+
+        html.dark .text-lime-600,
+        html.dark .text-cyan-600 {
+            color: #86efac !important;
         }
 
         html.dark #dailyChallengesList > div,
@@ -883,42 +870,42 @@
                     <div id="dailyAchievementsList" class="space-y-3"></div>
                 </div>
 
-                <div class="bg-white rounded-3xl shadow-lg border border-emerald-100 p-6">
+                <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-lg border border-emerald-100 dark:border-gray-700 p-6">
                     <div class="flex items-center justify-between mb-4">
                         <div>
-                            <h3 class="text-2xl font-bold text-dark">ختمة القرآن</h3>
-                            <p class="text-gray-500 font-semibold">هذه الختمة متصلة مباشرة بقسم القرآن الكريم وتحفظ تقدمك تلقائيًا صفحة بصفحة</p>
+                            <h3 class="text-2xl font-bold text-dark dark:text-white">ختمة القرآن</h3>
+                            <p class="text-gray-500 dark:text-gray-400 font-semibold">هذه الختمة متصلة مباشرة بقسم القرآن الكريم وتحفظ تقدمك تلقائيًا صفحة بصفحة</p>
                         </div>
-                        <div class="w-14 h-14 rounded-2xl bg-light text-primary flex items-center justify-center text-2xl">
+                        <div class="w-14 h-14 rounded-2xl bg-light dark:bg-gray-700 text-primary dark:text-emerald-400 flex items-center justify-center text-2xl">
                             <i class="fas fa-book-open"></i>
                         </div>
                     </div>
                     <div class="mb-4">
-                        <div class="flex justify-between items-center text-sm font-bold text-gray-600 mb-2">
+                        <div class="flex justify-between items-center text-sm font-bold text-gray-600 dark:text-gray-300 mb-2">
                             <span id="khatmaSummary">الصفحة 1 من 604</span>
                             <span id="khatmaPercent">0%</span>
                         </div>
-                        <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
+                        <div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
                             <div id="khatmaProgressBar" class="h-full bg-gradient-to-l from-emerald-500 to-primary rounded-full transition-all duration-300" style="width: 0%"></div>
                         </div>
                     </div>
                     <div class="grid grid-cols-3 gap-3 mb-4 text-center">
-                        <div class="bg-light rounded-2xl p-3">
-                            <p class="text-xs text-gray-500 font-semibold mb-1">الجزء الحالي</p>
-                            <p id="khatmaJuz" class="text-xl font-bold text-dark">1</p>
+                        <div class="bg-light dark:bg-gray-700 rounded-2xl p-3">
+                            <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold mb-1">الجزء الحالي</p>
+                            <p id="khatmaJuz" class="text-xl font-bold text-dark dark:text-white">1</p>
                         </div>
-                        <div class="bg-light rounded-2xl p-3">
-                            <p class="text-xs text-gray-500 font-semibold mb-1">المتبقي</p>
-                            <p id="khatmaRemaining" class="text-xl font-bold text-dark">603</p>
+                        <div class="bg-light dark:bg-gray-700 rounded-2xl p-3">
+                            <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold mb-1">المتبقي</p>
+                            <p id="khatmaRemaining" class="text-xl font-bold text-dark dark:text-white">603</p>
                         </div>
-                        <div class="bg-light rounded-2xl p-3">
-                            <p class="text-xs text-gray-500 font-semibold mb-1">اليوم</p>
-                            <p id="khatmaTodayPages" class="text-xl font-bold text-dark">0</p>
+                        <div class="bg-light dark:bg-gray-700 rounded-2xl p-3">
+                            <p class="text-xs text-gray-500 dark:text-gray-400 font-semibold mb-1">اليوم</p>
+                            <p id="khatmaTodayPages" class="text-xl font-bold text-dark dark:text-white">0</p>
                         </div>
                     </div>
                     <div class="flex gap-2">
                         <button onclick="showPage('quran'); openCurrentSavedPage();" class="flex-1 bg-primary hover:bg-emerald-700 text-white py-2 rounded-xl font-bold transition">فتح صفحة المتابعة</button>
-                        <button onclick="resetKhatmaProgress()" class="flex-1 bg-white border border-emerald-200 text-emerald-600 hover:bg-light py-2 rounded-xl font-bold transition">إعادة الضبط</button>
+                        <button onclick="resetKhatmaProgress()" class="flex-1 bg-white dark:bg-gray-800 border border-emerald-200 dark:border-gray-600 text-emerald-600 dark:text-emerald-400 hover:bg-light dark:hover:bg-gray-600 py-2 rounded-xl font-bold transition">إعادة الضبط</button>
                     </div>
                 </div>
             </div>
