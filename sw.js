@@ -21,9 +21,6 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
   if (url.hostname !== location.hostname || url.pathname.includes('/api/') || url.hostname.includes('alquran') || url.hostname.includes('aladhan')) {
-    e.respondWith(
-      fetch(e.request).catch(() => caches.match(e.request))
-    );
     return;
   }
   e.respondWith(
