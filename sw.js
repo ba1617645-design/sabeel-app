@@ -1,7 +1,7 @@
 const CACHE = 'sabil-almoamen-v2';
 const STATIC = [
   './',
-  './index-12 (1).html'
+  './index.html'
 ];
 
 self.addEventListener('install', e => {

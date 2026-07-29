@@ -2,7 +2,7 @@
   "name": "سبيل المؤمن",
   "short_name": "سبيل المؤمن",
   "description": "موقع إسلامي شامل للقرآن الكريم والأذكار والأدعية ومواقيت الصلاة",
-  "start_url": "./index-12 (1).html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#059669",
