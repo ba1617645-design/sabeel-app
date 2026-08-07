@@ -1,4 +1,4 @@
-const CACHE = 'sabil-almoamen-v2';
+const CACHE = 'sabil-almoamen-v3';
 const STATIC = [
   './',
   './index.html'
@@ -21,6 +21,17 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
   if (url.hostname !== location.hostname || url.pathname.includes('/api/') || url.hostname.includes('alquran') || url.hostname.includes('aladhan')) {
+    return;
+  }
+  const isHtml = e.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('.html');
+  if (isHtml) {
+    e.respondWith(
+      fetch(e.request).then(resp => {
+        const clone = resp.clone();
+        caches.open(CACHE).then(c => c.put(e.request, clone));
+        return resp;
+      }).catch(() => caches.match(e.request))
+    );
     return;
   }
   e.respondWith(

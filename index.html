@@ -4920,7 +4920,7 @@
             currentShareTitle = title || 'سبيل المؤمن';
             document.getElementById('shareModalTitle').textContent = 'مشاركة ' + currentShareTitle + ' كصورة';
             document.getElementById('shareImageModal').classList.add('open');
-            drawShareCanvas();
+            document.fonts.load('bold 26px Cairo').then(() => drawShareCanvas());
         }
 
         function openShareModal(btn) {
