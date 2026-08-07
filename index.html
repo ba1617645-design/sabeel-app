@@ -4943,105 +4943,63 @@
             drawShareCanvas();
         }
 
+        function escapeXml(s) {
+            return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
         function drawShareCanvas() {
-            const canvas = document.getElementById('shareCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const W = 800;
-            const theme = shareThemes[currentShareTheme];
-            const maxW = W - 100;
-            const lineHeight = 42;
-            const fontSize = currentShareText.length > 180 ? 20 : currentShareText.length > 100 ? 23 : 26;
-            ctx.font = `bold ${fontSize}px Cairo, Arial`;
-            const words = currentShareText.split(' ');
-            const lines = [];
-            let currentLine = '';
-            for (const word of words) {
-                const testLine = currentLine ? word + ' ' + currentLine : word;
-                if (ctx.measureText(testLine).width > maxW && currentLine) {
-                    lines.push(currentLine);
-                    currentLine = word;
-                } else {
-                    currentLine = testLine;
-                }
-            }
-            if (currentLine) lines.push(currentLine);
-            const H = Math.max(450, 190 + lines.length * lineHeight);
-            canvas.width = W; canvas.height = H;
+            return new Promise(resolve => {
+                const canvas = document.getElementById('shareCanvas');
+                if (!canvas) { resolve(); return; }
+                const ctx = canvas.getContext('2d');
+                const W = 800;
+                const theme = shareThemes[currentShareTheme];
+                const fontSize = currentShareText.length > 180 ? 20 : currentShareText.length > 100 ? 23 : 26;
 
-            // Background gradient
-            const grad = ctx.createLinearGradient(0, 0, W, H);
-            grad.addColorStop(0, theme.bg1);
-            grad.addColorStop(1, theme.bg2);
-            ctx.fillStyle = grad;
-            ctx.beginPath();
-            ctx.roundRect(0, 0, W, H, 24);
-            ctx.fill();
+                const measurer = document.createElement('div');
+                measurer.style.cssText = 'position:absolute;visibility:hidden;right:0;top:0;width:' + (W - 100) + 'px;font-family:\'Cairo\',\'Segoe UI\',Tahoma,\'Noto Naskh Arabic\',system-ui,sans-serif;font-weight:bold;font-size:' + fontSize + 'px;line-height:1.7;white-space:pre-wrap;word-break:break-word;';
+                measurer.textContent = currentShareText;
+                document.body.appendChild(measurer);
+                const textH = measurer.offsetHeight;
+                measurer.remove();
+                const H = Math.max(450, textH + 210);
+                canvas.width = W; canvas.height = H;
 
-            // Decorative circles
-            ctx.save();
-            ctx.globalAlpha = 0.12;
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath(); ctx.arc(W - 80, 60, 120, 0, Math.PI * 2); ctx.fill();
-            ctx.beginPath(); ctx.arc(80, H - 60, 90, 0, Math.PI * 2); ctx.fill();
-            ctx.restore();
+                const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '">' +
+                    '<foreignObject x="0" y="0" width="100%" height="100%">' +
+                    '<div xmlns="http://www.w3.org/1999/xhtml" style="width:' + W + 'px;height:' + H + 'px;box-sizing:border-box;background:linear-gradient(135deg,' + theme.bg1 + ',' + theme.bg2 + ');border-radius:24px;position:relative;overflow:hidden;display:flex;flex-direction:column;font-family:\'Cairo\',\'Segoe UI\',Tahoma,\'Noto Naskh Arabic\',system-ui,sans-serif;">' +
+                    '<div style="position:absolute;top:60px;right:-100px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,0.12);"></div>' +
+                    '<div style="position:absolute;bottom:-40px;left:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.12);"></div>' +
+                    '<div style="position:absolute;top:12px;left:12px;right:12px;bottom:12px;border:2px solid ' + theme.border + ';border-radius:18px;pointer-events:none;"></div>' +
+                    '<div style="margin-top:30px;display:flex;justify-content:center;"><div style="background:' + theme.badge + ';border-radius:18px;padding:8px 30px;color:' + theme.badgeText + ';font-weight:bold;font-size:16px;">سبيل المؤمن</div></div>' +
+                    '<div style="margin-top:12px;color:' + theme.logo + ';font-weight:bold;font-size:18px;text-align:center;">— ' + escapeXml(currentShareTitle) + ' —</div>' +
+                    '<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:14px 50px;direction:rtl;text-align:right;color:' + theme.text + ';font-weight:bold;font-size:' + fontSize + 'px;line-height:1.7;white-space:pre-wrap;word-break:break-word;">' + escapeXml(currentShareText) + '</div>' +
+                    '<div style="background:' + theme.badge + ';height:56px;display:flex;align-items:center;justify-content:center;color:' + theme.sub + ';font-size:14px;">سبيل المؤمن — صدقة جارية عن عمرو عصام الدسوقي</div>' +
+                    '</div></foreignObject></svg>';
 
-            // Border
-            ctx.strokeStyle = theme.border;
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.roundRect(12, 12, W - 24, H - 24, 18);
-            ctx.stroke();
-
-            // Site name badge
-            const badgeW = 200, badgeH = 36;
-            const badgeX = (W - badgeW) / 2;
-            ctx.fillStyle = theme.badge;
-            ctx.beginPath();
-            ctx.roundRect(badgeX, 28, badgeW, badgeH, 18);
-            ctx.fill();
-            ctx.fillStyle = theme.badgeText;
-            ctx.font = 'bold 16px Cairo, Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText('سبيل المؤمن', W / 2, 52);
-
-            // Category label
-            ctx.fillStyle = theme.logo;
-            ctx.font = 'bold 18px Cairo, Arial';
-            ctx.fillText('— ' + currentShareTitle + ' —', W / 2, 105);
-
-            // Main text (wrapped)
-            ctx.fillStyle = theme.text;
-            ctx.textAlign = 'right';
-            ctx.font = `bold ${fontSize}px Cairo, Arial`;
-            const totalTextH = lines.length * lineHeight;
-            let startY = (H - totalTextH) / 2 + 30;
-            if (startY < 130) startY = 130;
-            if (startY + totalTextH > H - 90) startY = H - 90 - totalTextH;
-            lines.forEach((line, i) => {
-                ctx.fillText(line, W - 50, startY + i * lineHeight);
+                const img = new Image();
+                img.onload = () => {
+                    ctx.clearRect(0, 0, W, H);
+                    ctx.drawImage(img, 0, 0, W, H);
+                    resolve();
+                };
+                img.onerror = () => { resolve(); };
+                img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
             });
-
-            // Bottom bar
-            ctx.fillStyle = theme.badge;
-            ctx.fillRect(0, H - 56, W, 56);
-            ctx.fillStyle = theme.sub;
-            ctx.font = '14px Cairo, Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText('سبيل المؤمن — صدقة جارية عن عمرو عصام الدسوقي', W / 2, H - 22);
         }
 
         function downloadShareImage() {
-            drawShareCanvas();
-            const canvas = document.getElementById('shareCanvas');
-            const link = document.createElement('a');
-            link.download = 'sabil-almoamen-share.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
+            drawShareCanvas().then(() => {
+                const canvas = document.getElementById('shareCanvas');
+                const link = document.createElement('a');
+                link.download = 'sabil-almoamen-share.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
         }
 
         async function nativeShareImage() {
-            drawShareCanvas();
+            await drawShareCanvas();
             const canvas = document.getElementById('shareCanvas');
             canvas.toBlob(async (blob) => {
                 const file = new File([blob], 'sabil-share.png', { type: 'image/png' });
