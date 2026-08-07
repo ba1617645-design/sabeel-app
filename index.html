@@ -4947,9 +4947,27 @@
             const canvas = document.getElementById('shareCanvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            const W = 800, H = 450;
-            canvas.width = W; canvas.height = H;
+            const W = 800;
             const theme = shareThemes[currentShareTheme];
+            const maxW = W - 100;
+            const lineHeight = 42;
+            const fontSize = currentShareText.length > 180 ? 20 : currentShareText.length > 100 ? 23 : 26;
+            ctx.font = `bold ${fontSize}px Cairo, Arial`;
+            const words = currentShareText.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                const testLine = currentLine ? word + ' ' + currentLine : word;
+                if (ctx.measureText(testLine).width > maxW && currentLine) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            if (currentLine) lines.push(currentLine);
+            const H = Math.max(450, 190 + lines.length * lineHeight);
+            canvas.width = W; canvas.height = H;
 
             // Background gradient
             const grad = ctx.createLinearGradient(0, 0, W, H);
@@ -4995,26 +5013,11 @@
             // Main text (wrapped)
             ctx.fillStyle = theme.text;
             ctx.textAlign = 'right';
-            const maxW = W - 100;
-            const lineHeight = 42;
-            const fontSize = currentShareText.length > 180 ? 20 : currentShareText.length > 100 ? 23 : 26;
             ctx.font = `bold ${fontSize}px Cairo, Arial`;
-            const words = currentShareText.split(' ');
-            const lines = [];
-            let currentLine = '';
-            for (const word of words) {
-                const testLine = currentLine ? word + ' ' + currentLine : word;
-                if (ctx.measureText(testLine).width > maxW && currentLine) {
-                    lines.push(currentLine);
-                    currentLine = word;
-                } else {
-                    currentLine = testLine;
-                }
-            }
-            if (currentLine) lines.push(currentLine);
             const totalTextH = lines.length * lineHeight;
             let startY = (H - totalTextH) / 2 + 30;
             if (startY < 130) startY = 130;
+            if (startY + totalTextH > H - 90) startY = H - 90 - totalTextH;
             lines.forEach((line, i) => {
                 ctx.fillText(line, W - 50, startY + i * lineHeight);
             });
