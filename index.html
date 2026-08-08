@@ -2714,9 +2714,12 @@
 
                 card.innerHTML = `
                     <p class="text-lg md:text-xl leading-relaxed text-dark font-semibold mb-4 pr-8">${dua.text}</p>
-                    <div class="flex justify-start border-t border-gray-100 pt-3">
+                    <div class="flex justify-between items-center border-t border-gray-100 pt-3">
                         <button onclick="copyText(this.parentElement)" class="text-sm text-gray-500 hover:text-primary transition flex items-center gap-1">
                             <i class="far fa-copy"></i> نسخ الدعاء
+                        </button>
+                        <button onclick="openShareModal(this)" data-sharetext="${dua.text}" data-sharetitle="دعاء مبارك" class="bg-sky-50 border border-sky-200 text-sky-600 hover:bg-sky-100 px-4 py-2 rounded-full font-bold transition text-sm">
+                            <i class="fas fa-image ml-2"></i> مشاركة
                         </button>
                     </div>
                     <div class="absolute top-4 right-4 text-emerald-300 text-2xl opacity-50">
